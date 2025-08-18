@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e2caa77ce59b351429f51d5b9a253183
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Environment/Animated
+    sprites/Small Chest left/SmallChest 10001.controller
+  uploadId: 738682

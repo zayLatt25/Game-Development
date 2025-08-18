@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 338bdf88caa4e614abdd20be84349918
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Environment/Animated
+    sprites/Fire barrel/FireBarrel0001.controller
+  uploadId: 738682

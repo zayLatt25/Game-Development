@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b036f8c3e4d9cd7488099e935dd5f8f8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/Survivor/RunBackwards/RunBackwards_SE.anim
+  uploadId: 738682

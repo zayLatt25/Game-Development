@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 20868734d1b0bd9459e61f2eb4b9d2cd
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Example Scene/Scripts/RoofVisibility.cs
+  uploadId: 738682

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ae7caa82b07dcbf41aff655795ce37cb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/Survivor/AttackRun/AttackRun_NW.anim
+  uploadId: 738682

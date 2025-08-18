@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 41feb53e92e41fd4898ed51cb563687a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/Survivor/StrafeLeft/StrafeLeft_NE.anim
+  uploadId: 738682

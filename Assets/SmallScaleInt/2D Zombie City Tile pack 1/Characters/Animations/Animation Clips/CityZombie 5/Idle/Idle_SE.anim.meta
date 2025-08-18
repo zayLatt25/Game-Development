@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ce36c5cd81c0ecc42991c2b5bc79f8d8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/CityZombie 5/Idle/Idle_SE.anim
+  uploadId: 738682

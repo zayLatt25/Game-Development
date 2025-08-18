@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ae456f01423e9b841839fe08cce82243
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/CityZombie 2/TakeDamage/TakeDamage_SW.anim
+  uploadId: 738682

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 4bff117093e46134680a879226e32a2f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 310347
+  packageName: Zombie City - HD Isometric Tileset
+  packageVersion: 1.1
+  assetPath: Assets/SmallScaleInt/2D Zombie City Tile pack 1/Characters/Animations/Animation
+    Clips/Survivor/CrouchIdle/CrouchIdle_W.anim
+  uploadId: 738682
