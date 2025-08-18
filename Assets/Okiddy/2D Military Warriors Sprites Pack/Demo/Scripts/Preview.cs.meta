@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 165e657e0cdbe1b49a3a72a7add2abe6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301251
+  packageName: 2D Military Warriors Sprites Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/Okiddy/2D Military Warriors Sprites Pack/Demo/Scripts/Preview.cs
+  uploadId: 731435

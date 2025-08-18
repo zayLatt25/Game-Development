@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8062ff8551b35b74f8597869f2065bda
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 301251
+  packageName: 2D Military Warriors Sprites Pack
+  packageVersion: 1.0.1
+  assetPath: Assets/Okiddy/2D Military Warriors Sprites Pack/Demo/Scripts/SpriteColorHueChanger.cs
+  uploadId: 731435
