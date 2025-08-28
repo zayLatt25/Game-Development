@@ -1,3 +1,4 @@
+
 using System;
 using UnityEngine;
 
@@ -14,9 +15,13 @@ public class GameController : MonoBehaviour
     public bool IsPaused => _isPaused; // Public property for other scripts to check
     private const KeyCode PauseKey = KeyCode.Escape;
 
+    private TutorialManager _tutorialManager;
+
     private void Start()
     {
         Time.timeScale = 1;
+        _tutorialManager = FindObjectOfType<TutorialManager>();
+
         _gameTimer.TimeLeftChanged += OnTimeLeftChanged;
         _exitZone.ExitZoneReached += Win;
         _player.HealthChanged += OnPlayerHealthChanged;
@@ -28,6 +33,10 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        // Don't allow pausing during tutorial
+        if (_tutorialManager != null && _tutorialManager.IsTutorialActive())
+            return;
+
         // Handle pause input
         if (Input.GetKeyDown(PauseKey))
         {
