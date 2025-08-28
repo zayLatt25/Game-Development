@@ -10537,6 +10537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8e9a6460d0a714db4a9b8d41b07792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showDebugOverlay: 1
 --- !u!61 &395105738
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21023,11 +21024,15 @@ MonoBehaviour:
   Health: 100
   _spriteRenderer: {fileID: 155509589}
   _audioSource: {fileID: 1483325642}
+  _infectionSound: {fileID: 0}
+  _vaccinePickupSound: {fileID: 0}
+  _weaponPickupSound: {fileID: 0}
   _moveSpeed: 5
   _isInfected: 0
   _currentWeaponIndex: 3
   _weapons:
   - IsFirearm: 1
+    Type: 0
     GunRenderer: {fileID: 777505280}
     MuzzleRenderer: {fileID: 517228120}
     BulletPrefab: {fileID: 1307072369978156947, guid: 6e33a934e134042498e8a40e57c53f19, type: 3}
@@ -21035,6 +21040,7 @@ MonoBehaviour:
     Sfx: {fileID: 8300000, guid: 0ebcf2175218e1745990bb004ca7a548, type: 3}
     PitchOffset: 0.1
   - IsFirearm: 1
+    Type: 0
     GunRenderer: {fileID: 1300623303}
     MuzzleRenderer: {fileID: 1563048910}
     BulletPrefab: {fileID: 1307072369978156947, guid: 6e33a934e134042498e8a40e57c53f19, type: 3}
@@ -21042,6 +21048,7 @@ MonoBehaviour:
     Sfx: {fileID: 8300000, guid: 0ebcf2175218e1745990bb004ca7a548, type: 3}
     PitchOffset: -0.2
   - IsFirearm: 0
+    Type: 0
     GunRenderer: {fileID: 237670653}
     MuzzleRenderer: {fileID: 1537087422}
     BulletPrefab: {fileID: 0}
@@ -21049,11 +21056,20 @@ MonoBehaviour:
     Sfx: {fileID: 8300000, guid: 07fbe82bb4bfbe941a874d0c9c8fbd9f, type: 3}
     PitchOffset: 0
   - IsFirearm: 0
+    Type: 0
     GunRenderer: {fileID: 682253149}
     MuzzleRenderer: {fileID: 128514076}
     BulletPrefab: {fileID: 0}
     FireRate: 2
     Sfx: {fileID: 8300000, guid: 5892adacab5e333498565e7559960793, type: 3}
+    PitchOffset: 0
+  - IsFirearm: 0
+    Type: 2
+    GunRenderer: {fileID: 1037150924}
+    MuzzleRenderer: {fileID: 128514076}
+    BulletPrefab: {fileID: 0}
+    FireRate: 10
+    Sfx: {fileID: 0}
     PitchOffset: 0
 --- !u!50 &730986336
 Rigidbody2D:
@@ -29233,6 +29249,119 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1037150922
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1037150925}
+  - component: {fileID: 1037150924}
+  - component: {fileID: 1037150923}
+  m_Layer: 0
+  m_Name: Flamethrower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1037150923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037150922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a33ccebebf3043bdafc6e00bc1acfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damagePerTick: 2
+  _damageTickRate: 0.1
+  _range: 3
+  _spreadAngle: 30
+  _targetLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _flameEffectPrefab: {fileID: 4058313054187432735, guid: 28c3ded7a6b3848dd8ce04a1247f26e9, type: 3}
+  _muzzlePoint: {fileID: 1888425947}
+  _flameSound: {fileID: 0}
+  _igniteSound: {fileID: 0}
+  _isActive: 0
+--- !u!212 &1037150924
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037150922}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -6878407848585044999, guid: ebd9a359f21364702bb6e40518f75893, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 7.06, y: 2.96}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1037150925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037150922}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1888425947}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1045415489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40645,8 +40774,8 @@ MonoBehaviour:
   _skipButtonComponent: {fileID: 0}
   _player: {fileID: 730986335}
   _gameTimer: {fileID: 2052232943}
-  _tutorialMoveDistance: 0.3
-  _tutorialMoveTime: 0.5
+  _maxDistanceFromStart: 3
+  _tutorialMoveSpeed: 2
 --- !u!4 &1484605230
 Transform:
   m_ObjectHideFlags: 0
@@ -52420,6 +52549,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1888425946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1888425947}
+  m_Layer: 0
+  m_Name: MuzzlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1888425947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888425946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.03, y: 0.19, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1037150925}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1899699039
 GameObject:
   m_ObjectHideFlags: 0
@@ -58144,3 +58304,4 @@ SceneRoots:
   - {fileID: 982853196}
   - {fileID: 664255523}
   - {fileID: 1484605230}
+  - {fileID: 1037150925}
