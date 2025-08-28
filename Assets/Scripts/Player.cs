@@ -12,6 +12,9 @@ public class Player : LivingEntity
     [Header("Renderers")]
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _infectionSound;
+    [SerializeField] private AudioClip _vaccinePickupSound;
+    [SerializeField] private AudioClip _weaponPickupSound;
 
     [Header("Movement")]
     [SerializeField] private float _moveSpeed = 5f;
@@ -32,12 +35,15 @@ public class Player : LivingEntity
     private Coroutine _meleeSwingCoroutine;
     private WeaponData CurrentWeapon => _weapons[_currentWeaponIndex];
     private GameController _gameController; // Reference to check pause state
+    private TutorialManager _tutorialManager; // Reference to check tutorial state
 
     protected override void Start()
     {
         base.Start();
         _mainCamera = Camera.main;
-        _gameController = FindObjectOfType<GameController>(); // Find GameController
+
+        _gameController = FindObjectOfType<GameController>();
+        _tutorialManager = FindObjectOfType<TutorialManager>();
 
         // Initialize weapons
         if (_weapons != null && _weapons.Length > 0)
@@ -61,7 +67,7 @@ public class Player : LivingEntity
 
     private void Update()
     {
-        // Check if game is paused - if so, don't process any input
+        // Check if game is paused - if so, don't process input
         if (_gameController != null && _gameController.IsPaused)
             return;
 
@@ -78,9 +84,16 @@ public class Player : LivingEntity
         float moveY = Input.GetAxisRaw("Vertical");
 
         _moveInput = new Vector2(moveX, moveY).normalized;
-        transform.position += (Vector3)_moveInput * (_moveSpeed * Time.deltaTime);
-    }
 
+        // Apply movement speed modifier during tutorial
+        float speedMultiplier = 1f;
+        if (_tutorialManager != null)
+        {
+            speedMultiplier = _tutorialManager.GetTutorialMovementSpeedMultiplier();
+        }
+
+        transform.position += (Vector3)_moveInput * (_moveSpeed * speedMultiplier * Time.deltaTime);
+    }
     private void HandleAiming()
     {
         if (_weapons == null || _weapons.Length == 0 || CurrentWeapon.GunRenderer == null)
@@ -324,6 +337,9 @@ public class Player : LivingEntity
         TintSprite();
         IsInfectedChanged?.Invoke(_isInfected);
 
+        if (_infectionSound != null)
+            _audioSource.PlayOneShot(_infectionSound, 0.8f);
+
         if (_infectedCoroutine != null) StopCoroutine(_infectedCoroutine);
         _infectedCoroutine = StartCoroutine(InfectedCoroutine());
     }
@@ -344,9 +360,12 @@ public class Player : LivingEntity
             DroppableItem nearest = FindNearestItem();
             if (nearest != null)
             {
+
                 switch (nearest.ItemType)
                 {
                     case DroppableItem.Type.Vaccine:
+                        if (_vaccinePickupSound != null)
+                            _audioSource.PlayOneShot(_vaccinePickupSound, 0.7f);
                         CureInfection();
                         TakeDamage(-10); // heal
                         break;
@@ -355,6 +374,8 @@ public class Player : LivingEntity
                     case DroppableItem.Type.Ak47:
                     case DroppableItem.Type.Knife:
                     case DroppableItem.Type.Axe:
+                        if (_weaponPickupSound != null)
+                            _audioSource.PlayOneShot(_weaponPickupSound, 0.6f);
                         SwitchToWeapon(nearest.ItemType switch
                         {
                             DroppableItem.Type.SubMachineGun => 0,
@@ -409,7 +430,7 @@ public class Player : LivingEntity
     {
         _spriteRenderer.color = _isInfected ? InfectedTint : Color.white;
     }
-
+    
     [Serializable]
     public struct WeaponData
     {
