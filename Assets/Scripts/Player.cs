@@ -8,7 +8,7 @@ public class Player : LivingEntity
     private static readonly Color InfectedTint = new(1, 0.5f, 0.5f);
     private const KeyCode PickupKey = KeyCode.C;
     private const KeyCode WeaponSwitchKey = KeyCode.Q;
-    
+
     [Header("Renderers")]
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private AudioSource _audioSource;
@@ -24,19 +24,21 @@ public class Player : LivingEntity
     [Header("Weapons")]
     [SerializeField] private int _currentWeaponIndex = 0;
     [SerializeField] private WeaponData[] _weapons;
-    
+
     private Camera _mainCamera;
     private Vector2 _moveInput;
     private float _nextFireTime;
     private Coroutine _infectedCoroutine;
     private Coroutine _meleeSwingCoroutine;
     private WeaponData CurrentWeapon => _weapons[_currentWeaponIndex];
+    private GameController _gameController; // Reference to check pause state
 
     protected override void Start()
     {
         base.Start();
         _mainCamera = Camera.main;
-        
+        _gameController = FindObjectOfType<GameController>(); // Find GameController
+
         // Initialize weapons
         if (_weapons != null && _weapons.Length > 0)
         {
@@ -59,6 +61,10 @@ public class Player : LivingEntity
 
     private void Update()
     {
+        // Check if game is paused - if so, don't process any input
+        if (_gameController != null && _gameController.IsPaused)
+            return;
+
         HandleMovementInput();
         HandleAiming();
         HandleFiring();
@@ -77,7 +83,7 @@ public class Player : LivingEntity
 
     private void HandleAiming()
     {
-        if (_weapons == null || _weapons.Length == 0 || CurrentWeapon.GunRenderer == null) 
+        if (_weapons == null || _weapons.Length == 0 || CurrentWeapon.GunRenderer == null)
             return;
 
         // Don't override aiming during melee swing
@@ -107,7 +113,7 @@ public class Player : LivingEntity
         if (_weapons == null || _weapons.Length == 0) return;
 
         bool shouldFire = CurrentWeapon.IsFirearm ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
-        
+
         if (shouldFire && Time.time >= _nextFireTime)
         {
             if (CurrentWeapon.IsFirearm)
@@ -124,7 +130,7 @@ public class Player : LivingEntity
     private void Fire()
     {
         WeaponData weapon = CurrentWeapon;
-        
+
         // Set next fire time
         _nextFireTime = Time.time + (1f / weapon.FireRate);
 
@@ -132,10 +138,10 @@ public class Player : LivingEntity
         if (weapon.BulletPrefab != null && weapon.GunRenderer != null)
         {
             Vector2 dir = weapon.GunRenderer.transform.right; // gun faces right by default
-            Vector3 spawnPos = weapon.MuzzleRenderer != null ? 
-                weapon.MuzzleRenderer.transform.position : 
+            Vector3 spawnPos = weapon.MuzzleRenderer != null ?
+                weapon.MuzzleRenderer.transform.position :
                 weapon.GunRenderer.transform.position;
-                
+
             Bullet bullet = Instantiate(weapon.BulletPrefab, spawnPos, Quaternion.identity);
             bullet.Initialize(dir);
         }
@@ -151,21 +157,21 @@ public class Player : LivingEntity
         {
             _audioSource.PlayOneShot(weapon.Sfx, Random.Range(0.08f, 0.12f));
         }
-        
+
         Debug.Log($"Fired {(_currentWeaponIndex < _weapons.Length ? $"weapon {_currentWeaponIndex}" : "unknown weapon")}!");
     }
 
     private void MeleeAttack()
     {
         WeaponData weapon = CurrentWeapon;
-        
+
         // Set next attack time
         _nextFireTime = Time.time + (1f / weapon.FireRate);
 
         // Start melee swing animation
         if (_meleeSwingCoroutine != null)
             StopCoroutine(_meleeSwingCoroutine);
-        
+
         _meleeSwingCoroutine = StartCoroutine(MeleeSwingCoroutine());
 
         // Play sound effect
@@ -174,7 +180,7 @@ public class Player : LivingEntity
             var volume = weapon.IsFirearm ? Random.Range(0.08f, 0.12f) : 1f;
             _audioSource.PlayOneShot(weapon.Sfx, volume);
         }
-        
+
         Debug.Log($"Melee attack with weapon {_currentWeaponIndex}!");
     }
 
@@ -204,7 +210,7 @@ public class Player : LivingEntity
             startAngle = centerAngle - SwingDegree;
             endAngle = centerAngle + SwingDegree;
         }
-        
+
         float swingDuration = 0.3f;
         float elapsedTime = 0f;
 
@@ -221,47 +227,29 @@ public class Player : LivingEntity
             float currentAngle = Mathf.LerpAngle(originalAngle, startAngle, prepProgress);
             weapon.GunRenderer.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
 
-            // Handle sprite flipping
-            Vector3 weaponScale = weapon.GunRenderer.transform.localScale;
-            weaponScale.y = Mathf.Abs(weaponScale.y);
-            if (mouseDirection.x < 0f)
-                weaponScale.y = -Mathf.Abs(weaponScale.y);
-            weapon.GunRenderer.transform.localScale = weaponScale;
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         // Phase 2: Main swing (80% of duration)
         float swingStartTime = elapsedTime;
-        float mainSwingDuration = swingDuration * 0.8f;
+        float mainDuration = swingDuration * 0.8f;
 
-        while (elapsedTime < swingStartTime + mainSwingDuration)
+        while (elapsedTime < swingStartTime + mainDuration)
         {
-            float swingProgress = (elapsedTime - swingStartTime) / mainSwingDuration;
-            
-            // Use ease-in-out curve for more natural swing
-            float easedProgress = Mathf.SmoothStep(0f, 1f, swingProgress);
-            
-            float currentAngle = Mathf.LerpAngle(startAngle, endAngle, easedProgress);
+            float swingProgress = (elapsedTime - swingStartTime) / mainDuration;
+            float currentAngle = Mathf.LerpAngle(startAngle, endAngle, swingProgress);
             weapon.GunRenderer.transform.rotation = Quaternion.Euler(0, 0, currentAngle);
-
-            // Handle sprite flipping
-            Vector3 weaponScale = weapon.GunRenderer.transform.localScale;
-            weaponScale.y = Mathf.Abs(weaponScale.y);
-            if (mouseDirection.x < 0f)
-                weaponScale.y = -Mathf.Abs(weaponScale.y);
-            weapon.GunRenderer.transform.localScale = weaponScale;
 
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Phase 3: Quick lerp to final resting position (10% of duration)
+        // Phase 3: Return to resting position (10% of duration)
         float finalDuration = swingDuration * 0.1f;
         float finalStartTime = elapsedTime;
         float restingAngle = centerAngle; // Rest at mouse direction
-   
+
         while (elapsedTime < finalStartTime + finalDuration)
         {
             mouseWorldPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -277,7 +265,7 @@ public class Player : LivingEntity
 
         // Ensure final rotation is set to resting position
         weapon.GunRenderer.transform.rotation = Quaternion.Euler(0, 0, restingAngle);
-        
+
         melee.CanDealDamage = false;
         _meleeSwingCoroutine = null;
     }
@@ -291,12 +279,6 @@ public class Player : LivingEntity
 
     private void HandleWeaponSwitch()
     {
-        // if (Input.GetKeyDown(WeaponSwitchKey) && _weapons != null && _weapons.Length > 1)
-        // {
-        //     int nextWeapon = (_currentWeaponIndex + 1) % _weapons.Length;
-        //     SwitchToWeapon(nextWeapon);
-        // }
-
         // Number key weapon switching (1-9)
         for (int i = 0; i < Mathf.Min(9, _weapons?.Length ?? 0); i++)
         {
@@ -310,7 +292,7 @@ public class Player : LivingEntity
 
     private void SwitchToWeapon(int weaponIndex)
     {
-        if (_weapons == null || weaponIndex < 0 || weaponIndex >= _weapons.Length) 
+        if (_weapons == null || weaponIndex < 0 || weaponIndex >= _weapons.Length)
             return;
 
         // Disable current weapon renderers
@@ -326,13 +308,13 @@ public class Player : LivingEntity
         // Switch to new weapon
         _currentWeaponIndex = weaponIndex;
         var newWeapon = _weapons[_currentWeaponIndex];
-        
+
         // Enable new weapon renderers
         if (newWeapon.GunRenderer != null)
             newWeapon.GunRenderer.gameObject.SetActive(true);
 
         _audioSource.pitch = 1 + newWeapon.PitchOffset;
-        
+
         Debug.Log($"Switched to weapon {_currentWeaponIndex}");
     }
 
@@ -354,7 +336,7 @@ public class Player : LivingEntity
             if (_isInfected) TakeDamage(1);
         }
     }
-    
+
     private void HandlePickup()
     {
         if (Input.GetKeyDown(PickupKey))
@@ -427,7 +409,7 @@ public class Player : LivingEntity
     {
         _spriteRenderer.color = _isInfected ? InfectedTint : Color.white;
     }
-    
+
     [Serializable]
     public struct WeaponData
     {
