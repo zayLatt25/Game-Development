@@ -9,6 +9,7 @@ public class ExitZone : MonoBehaviour
     // Testing toggle - set to false when game is finished
     [Header("Debug Settings")]
     [SerializeField] private bool showDebugOverlay = false;
+    [SerializeField] private bool showExitText = true;
 
     private Player _player;
     private SpriteRenderer _spriteRenderer;
@@ -53,8 +54,11 @@ public class ExitZone : MonoBehaviour
             _player.IsInfectedChanged += OnPlayerIsInfectedChanged;
         }
 
-        // Create the EXIT text above the zone
-        CreateExitText();
+        // Create the EXIT text above the zone if enabled
+        if (showExitText)
+        {
+            CreateExitText();
+        }
 
         // Create debug overlay if enabled (for testing)
         if (showDebugOverlay)
