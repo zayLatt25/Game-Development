@@ -10,8 +10,6 @@ public class Zombie : LivingEntity
     [SerializeField] private int _damage = 10;
     [SerializeField] private float _knockbackForce = 5f;
     [SerializeField] private AudioSource _audioSource;
-    
-    [Header("Audio Clips (Optional - will use AudioManager if not assigned)")]
     [SerializeField] private AudioClip _hitFlesh;
     [SerializeField] private AudioClip _deathSfx;
     [SerializeField] private AudioClip _infectionSound;
@@ -100,18 +98,18 @@ public class Zombie : LivingEntity
     }
     public override void TakeDamage(int damage)
     {
-        // Make zombies invincible during tutorial
+        // Check if tutorial is active - if not, take damage normally
         if (_tutorialManager != null && _tutorialManager.IsTutorialActive())
         {
-            // Play hit sound but don't take damage
+            // Play hit sound but don't take damage during tutorial
             if (!_audioSource.isPlaying && _hitFlesh != null)
                 _audioSource.PlayOneShot(_hitFlesh, Random.Range(0.8f, 1f));
 
             Debug.Log("Zombie is invincible during tutorial!");
-            return; // Don't process damage
+            return;
         }
 
-        // Normal damage processing
+        // Normal damage processing after tutorial
         base.TakeDamage(damage);
         if (!_audioSource.isPlaying && _hitFlesh != null)
             _audioSource.PlayOneShot(_hitFlesh, Random.Range(0.8f, 1f));
