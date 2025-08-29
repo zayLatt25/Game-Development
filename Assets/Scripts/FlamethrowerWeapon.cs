@@ -43,7 +43,7 @@ public class FlamethrowerWeapon : MonoBehaviour
         _nextDamageTime = Time.time;
         
         // Start flame effect
-        if (_flameEffectPrefab != null)
+        if (_flameEffectPrefab != null && _muzzlePoint != null)
         {
             _currentFlameEffect = Instantiate(_flameEffectPrefab, _muzzlePoint.position, _muzzlePoint.rotation, _muzzlePoint);
         }
