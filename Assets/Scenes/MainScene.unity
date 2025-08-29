@@ -21050,7 +21050,7 @@ MonoBehaviour:
     Sfx: {fileID: 8300000, guid: 0ebcf2175218e1745990bb004ca7a548, type: 3}
     PitchOffset: -0.2
   - IsFirearm: 0
-    Type: 0
+    Type: 1
     GunRenderer: {fileID: 237670653}
     MuzzleRenderer: {fileID: 1537087422}
     BulletPrefab: {fileID: 0}
@@ -21058,7 +21058,7 @@ MonoBehaviour:
     Sfx: {fileID: 8300000, guid: 07fbe82bb4bfbe941a874d0c9c8fbd9f, type: 3}
     PitchOffset: 0
   - IsFirearm: 0
-    Type: 0
+    Type: 1
     GunRenderer: {fileID: 682253149}
     MuzzleRenderer: {fileID: 128514076}
     BulletPrefab: {fileID: 0}

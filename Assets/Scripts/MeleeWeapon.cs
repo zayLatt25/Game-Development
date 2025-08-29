@@ -20,21 +20,42 @@ public class MeleeWeapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Debug logging
+        Debug.Log($"MeleeWeapon trigger with {other.name}, CanDealDamage: {CanDealDamage}");
+        
         // Check if the other object has a LivingEntity (zombie, etc.)
-        var target = other.GetComponent<Zombie>();
+        var target = other.GetComponent<LivingEntity>();
         if (target != null && target.Health > 0)
         {
+            Debug.Log($"Found LivingEntity: {target.name} with health {target.Health}");
+            
             // Deal damage
             if (CanDealDamage)
+            {
                 target.TakeDamage(_damage);
+                Debug.Log($"Dealt {_damage} damage to {target.name}");
+            }
+            else
+            {
+                Debug.Log("CanDealDamage is false, no damage dealt");
+            }
 
             // Knockback if target has Rigidbody2D
             Rigidbody2D rb = other.attachedRigidbody;
             if (rb != null)
             {
                 Vector2 knockBackDir = (other.transform.position - transform.position).normalized;
-                target.KnockBack(knockBackDir, _knockbackForce);
+                // Check if the target is a Zombie specifically for knockback
+                var zombie = target as Zombie;
+                if (zombie != null)
+                {
+                    zombie.KnockBack(knockBackDir, _knockbackForce);
+                }
             }
+        }
+        else
+        {
+            Debug.Log($"No LivingEntity found on {other.name}");
         }
     }
 }

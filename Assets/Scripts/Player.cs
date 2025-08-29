@@ -291,7 +291,14 @@ public class Player : LivingEntity
         if (weapon.GunRenderer == null) yield break;
 
         var melee = weapon.GunRenderer.GetComponent<MeleeWeapon>();
-        melee.CanDealDamage = true;
+        if (melee == null)
+        {
+            Debug.LogError($"MeleeWeapon component not found on {weapon.GunRenderer.name}!");
+            yield break;
+        }
+
+        // Start with damage disabled
+        melee.CanDealDamage = false;
 
         // Get mouse direction for swing center
         Vector3 mouseWorldPos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -332,7 +339,9 @@ public class Player : LivingEntity
             yield return null;
         }
 
-        // Phase 2: Main swing (80% of duration)
+        // Phase 2: Main swing (80% of duration) - ENABLE DAMAGE HERE
+        Debug.Log("Melee swing damage phase started!");
+        melee.CanDealDamage = true;
         float swingStartTime = elapsedTime;
         float mainDuration = swingDuration * 0.8f;
 
@@ -346,7 +355,9 @@ public class Player : LivingEntity
             yield return null;
         }
 
-        // Phase 3: Return to resting position (10% of duration)
+        // Phase 3: Return to resting position (10% of duration) - DISABLE DAMAGE HERE
+        Debug.Log("Melee swing damage phase ended!");
+        melee.CanDealDamage = false;
         float finalDuration = swingDuration * 0.1f;
         float finalStartTime = elapsedTime;
         float restingAngle = centerAngle; // Rest at mouse direction
