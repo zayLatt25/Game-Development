@@ -55,9 +55,38 @@ public class Player : LivingEntity
 
     private void InitializeWeapons()
     {
-        // Disable all weapon renderers initially
-        foreach (var weapon in _weapons)
+        // Disable all weapon renderers initially and set weapon types
+        for (int i = 0; i < _weapons.Length; i++)
         {
+            var weapon = _weapons[i];
+            
+            // Set weapon types based on index (you can customize this in the inspector)
+            if (i == 0) // SubMachineGun
+            {
+                weapon.Type = WeaponType.Firearm;
+                weapon.IsFirearm = true;
+            }
+            else if (i == 1) // AK47
+            {
+                weapon.Type = WeaponType.Firearm;
+                weapon.IsFirearm = true;
+            }
+            else if (i == 2) // Knife
+            {
+                weapon.Type = WeaponType.Melee;
+                weapon.IsFirearm = false;
+            }
+            else if (i == 3) // Axe
+            {
+                weapon.Type = WeaponType.Melee;
+                weapon.IsFirearm = false;
+            }
+            else if (i == 4) // Flamethrower
+            {
+                weapon.Type = WeaponType.Flamethrower;
+                weapon.IsFirearm = false;
+            }
+            
             if (weapon.GunRenderer != null)
                 weapon.GunRenderer.gameObject.SetActive(false);
             if (weapon.MuzzleRenderer != null)
@@ -125,18 +154,41 @@ public class Player : LivingEntity
     {
         if (_weapons == null || _weapons.Length == 0) return;
 
-        bool shouldFire = CurrentWeapon.IsFirearm ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
+        bool shouldFire = false;
+        
+        // Handle different weapon types
+        switch (CurrentWeapon.Type)
+        {
+            case WeaponType.Firearm:
+                shouldFire = Input.GetMouseButton(0);
+                break;
+            case WeaponType.Melee:
+                shouldFire = Input.GetMouseButtonDown(0);
+                break;
+            case WeaponType.Flamethrower:
+                shouldFire = Input.GetMouseButton(0); // Continuous fire
+                break;
+        }
 
         if (shouldFire && Time.time >= _nextFireTime)
         {
-            if (CurrentWeapon.IsFirearm)
+            switch (CurrentWeapon.Type)
             {
-                Fire();
+                case WeaponType.Firearm:
+                    Fire();
+                    break;
+                case WeaponType.Melee:
+                    MeleeAttack();
+                    break;
+                case WeaponType.Flamethrower:
+                    HandleFlamethrower();
+                    break;
             }
-            else
-            {
-                MeleeAttack();
-            }
+        }
+        else if (CurrentWeapon.Type == WeaponType.Flamethrower && !shouldFire)
+        {
+            // Stop flamethrower when not firing
+            StopFlamethrower();
         }
     }
 
@@ -195,6 +247,40 @@ public class Player : LivingEntity
         }
 
         Debug.Log($"Melee attack with weapon {_currentWeaponIndex}!");
+    }
+    
+    private void HandleFlamethrower()
+    {
+        WeaponData weapon = CurrentWeapon;
+        
+        // Set next fire time for continuous fire
+        _nextFireTime = Time.time + (1f / weapon.FireRate);
+        
+        // Get the flamethrower component and start firing
+        if (weapon.GunRenderer != null)
+        {
+            var flamethrower = weapon.GunRenderer.GetComponent<FlamethrowerWeapon>();
+            if (flamethrower != null)
+            {
+                flamethrower.StartFlamethrower();
+            }
+        }
+        
+        Debug.Log($"Flamethrower active with weapon {_currentWeaponIndex}!");
+    }
+    
+    private void StopFlamethrower()
+    {
+        WeaponData weapon = CurrentWeapon;
+        
+        if (weapon.GunRenderer != null)
+        {
+            var flamethrower = weapon.GunRenderer.GetComponent<FlamethrowerWeapon>();
+            if (flamethrower != null)
+            {
+                flamethrower.StopFlamethrower();
+            }
+        }
     }
 
     private IEnumerator MeleeSwingCoroutine()
@@ -374,6 +460,7 @@ public class Player : LivingEntity
                     case DroppableItem.Type.Ak47:
                     case DroppableItem.Type.Knife:
                     case DroppableItem.Type.Axe:
+                    case DroppableItem.Type.Flamethrower:
                         if (_weaponPickupSound != null)
                             _audioSource.PlayOneShot(_weaponPickupSound, 0.6f);
                         SwitchToWeapon(nearest.ItemType switch
@@ -382,6 +469,7 @@ public class Player : LivingEntity
                             DroppableItem.Type.Ak47 => 1,
                             DroppableItem.Type.Knife => 2,
                             DroppableItem.Type.Axe => 3,
+                            DroppableItem.Type.Flamethrower => 4,
                             _ => throw new ArgumentOutOfRangeException($"Unknown ItemType {nearest.ItemType}")
                         });
                         break;
@@ -435,11 +523,19 @@ public class Player : LivingEntity
     public struct WeaponData
     {
         public bool IsFirearm;
+        public WeaponType Type;
         public SpriteRenderer GunRenderer;
         public SpriteRenderer MuzzleRenderer;
         public Bullet BulletPrefab;
         public int FireRate;
         public AudioClip Sfx;
         public float PitchOffset;
+    }
+    
+    public enum WeaponType
+    {
+        Firearm,
+        Melee,
+        Flamethrower
     }
 }

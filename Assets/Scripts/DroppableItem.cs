@@ -9,6 +9,7 @@ public class DroppableItem : MonoBehaviour
         Ak47 = 2,
         Knife = 3,
         Axe = 4,
+        Flamethrower = 5,
     }
     
     [SerializeField] private Type _itemType;
