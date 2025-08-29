@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.056954157, w: 0.9983768}
   m_LocalPosition: {x: -1.142, y: 0.432, z: -0.014842182}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5946206088809722398}
@@ -110,6 +110,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5946206088809722398}
   - component: {fileID: 4816096259831183374}
+  - component: {fileID: 4816096259831183375}
+  - component: {fileID: 4816096259831183376}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Untagged
@@ -147,3 +149,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemType: 4
   _pickupRange: 2
+--- !u!114 &4816096259831183375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484231830176868558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf088b49739f4be4b94e2271fb9750cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 3
+  _knockbackForce: 10
+  _knockbackDuration: 0.4
+  CanDealDamage: 0
+--- !u!58 &4816096259831183376
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484231830176868558}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6
+  m_Offset: {x: 0, y: 0}
+  m_IsTrigger: 1
