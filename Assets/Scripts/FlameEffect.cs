@@ -67,7 +67,6 @@ public class FlameEffect : MonoBehaviour
     // Call this when the flame hits something
     public void OnHit()
     {
-        // You can add hit effects here, like sparks or smoke
         if (_particleSystem != null)
         {
             _particleSystem.Stop();
