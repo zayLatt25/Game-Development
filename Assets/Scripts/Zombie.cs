@@ -10,6 +10,8 @@ public class Zombie : LivingEntity
     [SerializeField] private int _damage = 10;
     [SerializeField] private float _knockbackForce = 5f;
     [SerializeField] private AudioSource _audioSource;
+    
+    [Header("Audio Clips (Optional - will use AudioManager if not assigned)")]
     [SerializeField] private AudioClip _hitFlesh;
     [SerializeField] private AudioClip _deathSfx;
     [SerializeField] private AudioClip _infectionSound;
