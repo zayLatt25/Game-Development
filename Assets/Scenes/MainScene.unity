@@ -10537,7 +10537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8e9a6460d0a714db4a9b8d41b07792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDebugOverlay: 1
+  showDebugOverlay: 0
+  showExitText: 0
 --- !u!61 &395105738
 BoxCollider2D:
   m_ObjectHideFlags: 0
