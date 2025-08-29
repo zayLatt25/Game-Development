@@ -12,6 +12,8 @@ public class Player : LivingEntity
     [Header("Renderers")]
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private AudioSource _audioSource;
+    
+    [Header("Audio Clips (Optional - will use AudioManager if not assigned)")]
     [SerializeField] private AudioClip _infectionSound;
     [SerializeField] private AudioClip _vaccinePickupSound;
     [SerializeField] private AudioClip _weaponPickupSound;
@@ -423,8 +425,15 @@ public class Player : LivingEntity
         TintSprite();
         IsInfectedChanged?.Invoke(_isInfected);
 
-        if (_infectionSound != null)
-            _audioSource.PlayOneShot(_infectionSound, 0.8f);
+        // Play infection sound
+        AudioClip clipToPlay = _infectionSound != null ? _infectionSound : 
+            (AudioManager.Instance != null ? AudioManager.Instance.GetInfectionSound() : null);
+        
+        if (clipToPlay != null && _audioSource != null)
+        {
+            float volume = AudioManager.Instance != null ? AudioManager.Instance.GetAdjustedSFXVolume() : 0.8f;
+            _audioSource.PlayOneShot(clipToPlay, volume);
+        }
 
         if (_infectedCoroutine != null) StopCoroutine(_infectedCoroutine);
         _infectedCoroutine = StartCoroutine(InfectedCoroutine());
@@ -450,8 +459,16 @@ public class Player : LivingEntity
                 switch (nearest.ItemType)
                 {
                     case DroppableItem.Type.Vaccine:
-                        if (_vaccinePickupSound != null)
-                            _audioSource.PlayOneShot(_vaccinePickupSound, 0.7f);
+                        // Play vaccine pickup sound
+                        AudioClip vaccineClip = _vaccinePickupSound != null ? _vaccinePickupSound : 
+                            (AudioManager.Instance != null ? AudioManager.Instance.GetVaccinePickupSound() : null);
+                        
+                        if (vaccineClip != null && _audioSource != null)
+                        {
+                            float volume = AudioManager.Instance != null ? AudioManager.Instance.GetAdjustedSFXVolume() : 0.7f;
+                            _audioSource.PlayOneShot(vaccineClip, volume);
+                        }
+                        
                         CureInfection();
                         TakeDamage(-10); // heal
                         break;
@@ -461,8 +478,16 @@ public class Player : LivingEntity
                     case DroppableItem.Type.Knife:
                     case DroppableItem.Type.Axe:
                     case DroppableItem.Type.Flamethrower:
-                        if (_weaponPickupSound != null)
-                            _audioSource.PlayOneShot(_weaponPickupSound, 0.6f);
+                        // Play weapon pickup sound
+                        AudioClip weaponClip = _weaponPickupSound != null ? _weaponPickupSound : 
+                            (AudioManager.Instance != null ? AudioManager.Instance.GetWeaponPickupSound() : null);
+                        
+                        if (weaponClip != null && _audioSource != null)
+                        {
+                            float volume = AudioManager.Instance != null ? AudioManager.Instance.GetAdjustedSFXVolume() : 0.6f;
+                            _audioSource.PlayOneShot(weaponClip, volume);
+                        }
+                        
                         SwitchToWeapon(nearest.ItemType switch
                         {
                             DroppableItem.Type.SubMachineGun => 0,

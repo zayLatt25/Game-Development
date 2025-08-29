@@ -53510,6 +53510,61 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1946635964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1946635966}
+  - component: {fileID: 1946635965}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1946635965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946635964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81680592bf38409d99bb78c5f761633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infectionSound: {fileID: 8300000, guid: fe9b7b23d03d05a4989b36fa1b787222, type: 3}
+  vaccinePickupSound: {fileID: 8300000, guid: f067a88c31ad3f34286302c5b32e560c, type: 3}
+  weaponPickupSound: {fileID: 8300000, guid: 875c7ccacdaac5645a62f90c6a07c665, type: 3}
+  hitFleshSound: {fileID: 8300000, guid: db8d58a3af4840143ad1efae414b4171, type: 3}
+  deathSound: {fileID: 0}
+  knifeSlashSound: {fileID: 8300000, guid: 07fbe82bb4bfbe941a874d0c9c8fbd9f, type: 3}
+  axeSlashSound: {fileID: 8300000, guid: 5892adacab5e333498565e7559960793, type: 3}
+  submachineGunSound: {fileID: 8300000, guid: 0ebcf2175218e1745990bb004ca7a548, type: 3}
+  masterVolume: 1
+  sfxVolume: 0.8
+  musicVolume: 0.6
+--- !u!4 &1946635966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946635964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.6682768, y: -6.6910415, z: 0.06607312}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1953161607
 GameObject:
   m_ObjectHideFlags: 0
@@ -58425,3 +58480,4 @@ SceneRoots:
   - {fileID: 664255523}
   - {fileID: 1484605230}
   - {fileID: 1869142973}
+  - {fileID: 1946635966}
