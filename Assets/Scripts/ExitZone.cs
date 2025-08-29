@@ -8,7 +8,7 @@ public class ExitZone : MonoBehaviour
 
     // Testing toggle - set to false when game is finished
     [Header("Debug Settings")]
-    [SerializeField] private bool showDebugOverlay = true;
+    [SerializeField] private bool showDebugOverlay = false;
 
     private Player _player;
     private SpriteRenderer _spriteRenderer;
