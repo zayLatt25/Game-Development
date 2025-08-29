@@ -30,7 +30,6 @@ public class FlamethrowerWeapon : MonoBehaviour
             _audioSource = gameObject.AddComponent<AudioSource>();
         }
         
-        // Configure audio source for flamethrower
         _audioSource.loop = true;
         _audioSource.volume = 0.6f;
     }
@@ -117,14 +116,8 @@ public class FlamethrowerWeapon : MonoBehaviour
                 Zombie zombie = hit.collider.GetComponent<Zombie>();
                 if (zombie != null && zombie.Health > 0)
                 {
-                    zombie.TakeDamage(_damagePerTick);
-                    
-                    // Apply burn effect (optional)
-                    // zombie.ApplyBurnEffect();
+                    zombie.TakeDamage(_damagePerTick);   
                 }
-                
-                // Visual feedback - you can add flame particles at hit points
-                // CreateFlameHitEffect(hit.point);
             }
         }
     }
