@@ -340,7 +340,6 @@ public class Player : LivingEntity
         }
 
         // Phase 2: Main swing (80% of duration) - ENABLE DAMAGE HERE
-        Debug.Log("Melee swing damage phase started!");
         melee.CanDealDamage = true;
         float swingStartTime = elapsedTime;
         float mainDuration = swingDuration * 0.8f;
@@ -356,7 +355,6 @@ public class Player : LivingEntity
         }
 
         // Phase 3: Return to resting position (10% of duration) - DISABLE DAMAGE HERE
-        Debug.Log("Melee swing damage phase ended!");
         melee.CanDealDamage = false;
         float finalDuration = swingDuration * 0.1f;
         float finalStartTime = elapsedTime;
