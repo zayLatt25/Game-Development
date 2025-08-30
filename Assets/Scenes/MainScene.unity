@@ -21081,9 +21081,9 @@ Transform:
   - {fileID: 155509588}
   - {fileID: 777505279}
   - {fileID: 1300623301}
-  - {fileID: 1037150925}
   - {fileID: 237670651}
   - {fileID: 682253147}
+  - {fileID: 1037150925}
   - {fileID: 1483325643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21144,7 +21144,7 @@ MonoBehaviour:
   - IsFirearm: 0
     Type: 2
     GunRenderer: {fileID: 1037150924}
-    MuzzleRenderer: {fileID: 128514076}
+    MuzzleRenderer: {fileID: 517228120}
     BulletPrefab: {fileID: 0}
     FireRate: 10
     Sfx: {fileID: 0}
