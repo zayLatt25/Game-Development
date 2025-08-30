@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class FlamethrowerWeapon : MonoBehaviour
 {
@@ -14,13 +15,16 @@ public class FlamethrowerWeapon : MonoBehaviour
     [SerializeField] private Transform _muzzlePoint;
     [SerializeField] private AudioClip _flameSound;
     [SerializeField] private AudioClip _igniteSound;
+    [SerializeField] private float _flameSpawnRate = 0.1f; // Spawn new flame effects every 0.1 seconds
+    [SerializeField] private int _maxFlameEffects = 6; // Maximum number of flame effects to maintain
     
     [Header("Status")]
     [SerializeField] private bool _isActive = false;
     
     private AudioSource _audioSource;
     private float _nextDamageTime;
-    private GameObject _currentFlameEffect;
+    private float _nextFlameSpawnTime;
+    private List<GameObject> _activeFlameEffects;
     
     private void Start()
     {
@@ -32,6 +36,8 @@ public class FlamethrowerWeapon : MonoBehaviour
         
         _audioSource.loop = true;
         _audioSource.volume = 0.6f;
+        
+        _activeFlameEffects = new List<GameObject>();
     }
     
     public void StartFlamethrower()
@@ -40,12 +46,7 @@ public class FlamethrowerWeapon : MonoBehaviour
         
         _isActive = true;
         _nextDamageTime = Time.time;
-        
-        // Start flame effect
-        if (_flameEffectPrefab != null && _muzzlePoint != null)
-        {
-            _currentFlameEffect = Instantiate(_flameEffectPrefab, _muzzlePoint.position, _muzzlePoint.rotation, _muzzlePoint);
-        }
+        _nextFlameSpawnTime = Time.time;
         
         // Start flame sound
         if (_flameSound != null && _audioSource != null)
@@ -67,12 +68,8 @@ public class FlamethrowerWeapon : MonoBehaviour
         
         _isActive = false;
         
-        // Stop flame effect
-        if (_currentFlameEffect != null)
-        {
-            Destroy(_currentFlameEffect);
-            _currentFlameEffect = null;
-        }
+        // Stop all flame effects
+        ClearAllFlameEffects();
         
         // Stop flame sound
         if (_audioSource != null)
@@ -91,6 +88,53 @@ public class FlamethrowerWeapon : MonoBehaviour
             DealFlameDamage();
             _nextDamageTime = Time.time + _damageTickRate;
         }
+        
+        // Spawn new flame effects continuously
+        if (Time.time >= _nextFlameSpawnTime)
+        {
+            SpawnFlameEffect();
+            _nextFlameSpawnTime = Time.time + _flameSpawnRate;
+        }
+        
+        // Clean up destroyed flame effects from the list
+        CleanupFlameEffects();
+    }
+    
+    private void SpawnFlameEffect()
+    {
+        if (_flameEffectPrefab != null && _muzzlePoint != null)
+        {
+            // Only spawn if we haven't reached the maximum
+            if (_activeFlameEffects.Count < _maxFlameEffects)
+            {
+                GameObject newFlame = Instantiate(_flameEffectPrefab, _muzzlePoint.position, _muzzlePoint.rotation, _muzzlePoint);
+                _activeFlameEffects.Add(newFlame);
+            }
+        }
+    }
+    
+    private void CleanupFlameEffects()
+    {
+        // Remove null references from destroyed flame effects
+        for (int i = _activeFlameEffects.Count - 1; i >= 0; i--)
+        {
+            if (_activeFlameEffects[i] == null)
+            {
+                _activeFlameEffects.RemoveAt(i);
+            }
+        }
+    }
+    
+    private void ClearAllFlameEffects()
+    {
+        foreach (var flame in _activeFlameEffects)
+        {
+            if (flame != null)
+            {
+                Destroy(flame);
+            }
+        }
+        _activeFlameEffects.Clear();
     }
     
     private void DealFlameDamage()
