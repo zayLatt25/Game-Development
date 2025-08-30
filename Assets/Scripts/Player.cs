@@ -552,7 +552,49 @@ public class Player : LivingEntity
     {
         _spriteRenderer.color = _isInfected ? InfectedTint : Color.white;
     }
-    
+
+    private void HandleShooting()
+    {
+        if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
+        {
+            Fire();
+
+            // ADD SCREEN SHAKE
+            StartCoroutine(ScreenShake(0.1f, 0.1f));
+
+            // ADD MUZZLE FLASH
+            if (CurrentWeapon.MuzzleRenderer != null)
+            {
+                StartCoroutine(MuzzleFlash());
+            }
+        }
+    }
+
+    private IEnumerator ScreenShake(float duration, float magnitude)
+    {
+        Vector3 originalPos = _mainCamera.transform.localPosition;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            _mainCamera.transform.localPosition = new Vector3(x, y, originalPos.z);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        _mainCamera.transform.localPosition = originalPos;
+    }
+
+    private IEnumerator MuzzleFlash()
+    {
+        CurrentWeapon.MuzzleRenderer.enabled = true;
+        yield return new WaitForSeconds(0.05f);
+        CurrentWeapon.MuzzleRenderer.enabled = false;
+    }
+
     [Serializable]
     public struct WeaponData
     {

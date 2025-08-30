@@ -40,7 +40,6 @@ public class TutorialManager : MonoBehaviour
 
     [Header("Tutorial Movement Restrictions")]
     [SerializeField] private float _maxDistanceFromStart = 3f; // Maximum distance player can move from start
-    [SerializeField] private float _tutorialMoveSpeed = 2f; // Reduced movement speed during tutorial
 
     private int _currentStepIndex = 0;
     private bool _tutorialActive = false;

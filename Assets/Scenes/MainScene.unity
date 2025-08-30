@@ -10005,6 +10005,83 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &378398509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378398511}
+  - component: {fileID: 378398510}
+  m_Layer: 0
+  m_Name: HealthEffectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &378398510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378398509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6814f53f956558e4b82bfa8e3e6ea0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 730986335}
+  _screenBorderImage: {fileID: 0}
+  _lowHealthThreshold: 30
+  _criticalHealthThreshold: 15
+  _damageColor: {r: 1, g: 0, b: 0, a: 0.5}
+  _infectionColor: {r: 0.5019608, g: 0, b: 0.17640837, a: 0.3}
+  _heartbeatCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _normalHeartbeatSpeed: 1.2
+  _fastHeartbeatSpeed: 2.5
+  _criticalHeartbeatSpeed: 4
+--- !u!4 &378398511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378398509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381041125
 GameObject:
   m_ObjectHideFlags: 0
@@ -32426,11 +32503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fa46f7060b20c4f95c35511e519747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vaccinePrefab: {fileID: 4816096259831183374, guid: ffa9b9ce7db4645428a46eb82e396a07, type: 3}
-  _worldRoot: {fileID: 596353318}
-  _spawnInterval: 2
-  _spawnMargin: 3
-  _gameTimer: {fileID: 2052232943}
   _wavePresets:
   - TimeLeft: 600
     SpawnInterval: 4
@@ -32484,6 +32556,8 @@ MonoBehaviour:
       Chance: 3
     - Zombie: {fileID: 1299504196085786197, guid: 45323aa4ea53fec45b7166dfde27e35a, type: 3}
       Chance: 6
+  _gameTimer: {fileID: 2052232943}
+  _vaccinePrefab: {fileID: 0}
 --- !u!61 &1163350514
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40793,7 +40867,6 @@ MonoBehaviour:
   _player: {fileID: 730986335}
   _gameTimer: {fileID: 2052232943}
   _maxDistanceFromStart: 3
-  _tutorialMoveSpeed: 2
 --- !u!4 &1484605230
 Transform:
   m_ObjectHideFlags: 0
@@ -58481,3 +58554,4 @@ SceneRoots:
   - {fileID: 1484605230}
   - {fileID: 1869142973}
   - {fileID: 1946635966}
+  - {fileID: 378398511}
