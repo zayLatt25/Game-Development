@@ -55,7 +55,15 @@ public class WaveController : MonoBehaviour
         if (player != null)
             _playerTransform = player.transform;
 
-        StartCoroutine(SpawnVaccineRoutine());
+        // Only start vaccine spawning if prefab is assigned
+        if (_vaccinePrefab != null)
+        {
+            StartCoroutine(SpawnVaccineRoutine());
+        }
+        else
+        {
+            Debug.LogWarning("Vaccine prefab not assigned in WaveController. Vaccine spawning disabled.");
+        }
 
         if (_tutorialManager != null)
         {
@@ -335,7 +343,7 @@ public class WaveController : MonoBehaviour
         foreach (var col in overlaps)
         {
             if (col.isTrigger) continue;
-            if (col.CompareTag("Zombie")) continue;
+            // Check if it's a zombie by component instead of tag to avoid tag issues
             if (col.GetComponent<Zombie>() != null) continue;
 
             return false;
@@ -388,6 +396,13 @@ public class WaveController : MonoBehaviour
 
     private IEnumerator SpawnVaccineRoutine()
     {
+        // Check if vaccine prefab is assigned, if not, don't spawn vaccines
+        if (_vaccinePrefab == null)
+        {
+            Debug.LogWarning("Vaccine prefab not assigned in WaveController. Vaccine spawning disabled.");
+            yield break; // Exit the coroutine
+        }
+
         yield return new WaitForSeconds(5f); // Initial delay
 
         while (true)
