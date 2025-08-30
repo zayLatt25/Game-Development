@@ -7,7 +7,7 @@ public abstract class LivingEntity : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] protected int MaxHealth = 100;
-    [SerializeField] public int Health = 100;
+    public int Health { get; private set; } = 100;
     
     public event Action HealthChanged;
 
@@ -19,7 +19,7 @@ public abstract class LivingEntity : MonoBehaviour
 
     protected virtual void Start()
     {
-        Health = MaxHealth;
+        Health = MaxHealth; 
 
         Rigidbody2D = GetComponent<Rigidbody2D>();
         Rigidbody2D.gravityScale = 0f;              // no gravity in top-down
