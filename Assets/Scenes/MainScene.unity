@@ -32556,7 +32556,7 @@ MonoBehaviour:
     - Zombie: {fileID: 1299504196085786197, guid: 45323aa4ea53fec45b7166dfde27e35a, type: 3}
       Chance: 6
   _gameTimer: {fileID: 2052232943}
-  _vaccinePrefab: {fileID: 0}
+  _vaccinePrefab: {fileID: 5484231830176868558, guid: ffa9b9ce7db4645428a46eb82e396a07, type: 3}
 --- !u!61 &1163350514
 BoxCollider2D:
   m_ObjectHideFlags: 0
