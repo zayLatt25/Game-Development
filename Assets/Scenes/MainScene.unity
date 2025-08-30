@@ -21100,7 +21100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  Health: 100
   _spriteRenderer: {fileID: 155509589}
   _audioSource: {fileID: 1483325642}
   _infectionSound: {fileID: 0}
@@ -29368,7 +29367,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   _flameEffectPrefab: {fileID: 4058313054187432735, guid: 28c3ded7a6b3848dd8ce04a1247f26e9, type: 3}
   _muzzlePoint: {fileID: 1888425947}
-  _flameSound: {fileID: 0}
+  _flameSound: {fileID: 8300000, guid: 06a4a80a53d304429b3c56ad9f55f602, type: 3}
   _igniteSound: {fileID: 0}
   _isActive: 0
 --- !u!212 &1037150924
