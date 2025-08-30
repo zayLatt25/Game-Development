@@ -3,7 +3,7 @@ using UnityEngine;
 public class FlameEffect : MonoBehaviour
 {
     [Header("Flame Settings")]
-    [SerializeField] private float _lifetime = 0.5f;
+    [SerializeField] private float _lifetime = 0.5f; // Short lifetime for continuous spawning
     [SerializeField] private float _fadeOutDuration = 0.2f;
     [SerializeField] private Vector2 _scaleRange = new Vector2(0.8f, 1.2f);
     [SerializeField] private float _flickerSpeed = 10f;

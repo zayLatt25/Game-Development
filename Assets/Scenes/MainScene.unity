@@ -29381,6 +29381,8 @@ MonoBehaviour:
   _muzzlePoint: {fileID: 1888425947}
   _flameSound: {fileID: 8300000, guid: 06a4a80a53d304429b3c56ad9f55f602, type: 3}
   _igniteSound: {fileID: 0}
+  _flameSpawnRate: 0.1
+  _maxFlameEffects: 6
   _isActive: 0
 --- !u!212 &1037150924
 SpriteRenderer:
