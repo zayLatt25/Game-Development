@@ -31,6 +31,8 @@ public class Player : LivingEntity
     [SerializeField] private WeaponData[] _weapons;
 
     private Camera _mainCamera;
+    private Camera _cameraShakeTarget;
+    private bool _isShaking = false;
     private Vector2 _moveInput;
     private float _nextFireTime;
     private Coroutine _infectedCoroutine;
@@ -53,6 +55,9 @@ public class Player : LivingEntity
             InitializeWeapons();
             SwitchToWeapon(0);
         }
+
+        _cameraShakeTarget = Camera.main;
+
     }
 
     private void InitializeWeapons()
@@ -197,14 +202,11 @@ public class Player : LivingEntity
     private void Fire()
     {
         WeaponData weapon = CurrentWeapon;
-
-        // Set next fire time
         _nextFireTime = Time.time + (1f / weapon.FireRate);
 
-        // Spawn bullet/projectile
         if (weapon.BulletPrefab != null && weapon.GunRenderer != null)
         {
-            Vector2 dir = weapon.GunRenderer.transform.right; // gun faces right by default
+            Vector2 dir = weapon.GunRenderer.transform.right;
             Vector3 spawnPos = weapon.MuzzleRenderer != null ?
                 weapon.MuzzleRenderer.transform.position :
                 weapon.GunRenderer.transform.position;
@@ -213,19 +215,19 @@ public class Player : LivingEntity
             bullet.Initialize(dir);
         }
 
-        // Muzzle flash (only for firearms)
-        if (weapon.IsFirearm && weapon.MuzzleRenderer != null)
-        {
-            StartCoroutine(ShowMuzzleFlash(weapon.MuzzleRenderer));
-        }
+        // Different shake intensity per weapon
+        float shakeMagnitude = 0.05f; // Default subtle shake
+        if (_currentWeaponIndex == 1) // AK47 - bigger shake
+            shakeMagnitude = 0.04f;
+        else if (_currentWeaponIndex == 0) // SMG - smaller shake
+            shakeMagnitude = 0.03f;
 
-        // Play sound effect
+        StartCoroutine(ScreenShake(0.1f, shakeMagnitude));
+
         if (weapon.Sfx != null)
         {
             _audioSource.PlayOneShot(weapon.Sfx, Random.Range(0.08f, 0.12f));
         }
-
-        Debug.Log($"Fired {(_currentWeaponIndex < _weapons.Length ? $"weapon {_currentWeaponIndex}" : "unknown weapon")}!");
     }
 
     private void MeleeAttack()
@@ -553,47 +555,39 @@ public class Player : LivingEntity
         _spriteRenderer.color = _isInfected ? InfectedTint : Color.white;
     }
 
-    private void HandleShooting()
-    {
-        if (Input.GetMouseButton(0) && Time.time >= _nextFireTime)
-        {
-            Fire();
-
-            // ADD SCREEN SHAKE
-            StartCoroutine(ScreenShake(0.1f, 0.1f));
-
-            // ADD MUZZLE FLASH
-            if (CurrentWeapon.MuzzleRenderer != null)
-            {
-                StartCoroutine(MuzzleFlash());
-            }
-        }
-    }
-
     private IEnumerator ScreenShake(float duration, float magnitude)
     {
-        Vector3 originalPos = _mainCamera.transform.localPosition;
+        if (_cameraShakeTarget == null || _isShaking) yield break;
+
+        _isShaking = true;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
+            // Get current camera position each frame (follows player)
+            Vector3 currentCameraPos = _cameraShakeTarget.transform.position;
+
             float x = Random.Range(-1f, 1f) * magnitude;
             float y = Random.Range(-1f, 1f) * magnitude;
 
-            _mainCamera.transform.localPosition = new Vector3(x, y, originalPos.z);
+            // Apply shake with falloff
+            float falloff = 1f - (elapsed / duration);
+
+            // Apply shake offset to current position, not original
+            _cameraShakeTarget.transform.position = new Vector3(
+                currentCameraPos.x + (x * falloff),
+                currentCameraPos.y + (y * falloff),
+                currentCameraPos.z  // Keep Z unchanged
+            );
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        _mainCamera.transform.localPosition = originalPos;
+        // Let camera controller handle resetting position
+        _isShaking = false;
     }
 
-    private IEnumerator MuzzleFlash()
-    {
-        CurrentWeapon.MuzzleRenderer.enabled = true;
-        yield return new WaitForSeconds(0.05f);
-        CurrentWeapon.MuzzleRenderer.enabled = false;
-    }
 
     [Serializable]
     public struct WeaponData
