@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class LivingEntity : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected int MaxHealth = 100;
+    public int MaxHealth { get; private set; } = 100; // Changed from protected to public
     public int Health { get; private set; } = 100;
     
     public event Action HealthChanged;
