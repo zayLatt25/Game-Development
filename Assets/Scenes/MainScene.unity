@@ -14378,6 +14378,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
+      propertyPath: _damage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
       propertyPath: m_Name
       value: Knife (1)
@@ -16784,6 +16788,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 24a48f1a251676c42b8255580045b878, type: 3}
+      propertyPath: _damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 24a48f1a251676c42b8255580045b878, type: 3}
       propertyPath: m_Name
       value: Axe
@@ -17294,6 +17302,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
+      propertyPath: _damage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
       propertyPath: m_Name
       value: Knife (2)
@@ -22936,6 +22948,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 24a48f1a251676c42b8255580045b878, type: 3}
+      propertyPath: _damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 24a48f1a251676c42b8255580045b878, type: 3}
       propertyPath: m_Name
       value: Axe (1)
@@ -28262,6 +28278,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
+      propertyPath: _damage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 5279277dfeffb2b418172b883ad0a216, type: 3}
       propertyPath: m_Name
       value: Knife
@@ -57755,6 +57775,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4816096259831183375, guid: 24a48f1a251676c42b8255580045b878, type: 3}
+      propertyPath: _damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5484231830176868558, guid: 24a48f1a251676c42b8255580045b878, type: 3}
       propertyPath: m_Name
       value: Axe (2)
