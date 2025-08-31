@@ -88,6 +88,10 @@ PrefabInstance:
       propertyPath: _knockbackForce
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7645245558220071672, guid: 58a81432dd3abc34daba2cff26d47403, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

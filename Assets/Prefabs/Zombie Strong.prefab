@@ -78,7 +78,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7645245558220071672, guid: 58a81432dd3abc34daba2cff26d47403, type: 3}
       propertyPath: _damage
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7645245558220071672, guid: 58a81432dd3abc34daba2cff26d47403, type: 3}
       propertyPath: MaxHealth
@@ -87,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 7645245558220071672, guid: 58a81432dd3abc34daba2cff26d47403, type: 3}
       propertyPath: _knockbackForce
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645245558220071672, guid: 58a81432dd3abc34daba2cff26d47403, type: 3}
+      propertyPath: <MaxHealth>k__BackingField
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

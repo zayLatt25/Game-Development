@@ -43,6 +43,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -178,6 +179,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -279,14 +283,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f7b59eb9f8c9940903133dc9f23668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  Health: 0
+  <MaxHealth>k__BackingField: 20
   _spriteRenderer: {fileID: 5480568683362459590}
   _damage: 10
   _knockbackForce: 6
   _audioSource: {fileID: 6132827051409800177}
   _hitFlesh: {fileID: 8300000, guid: db8d58a3af4840143ad1efae414b4171, type: 3}
   _deathSfx: {fileID: 8300000, guid: 588ccef9b33ac76468a0f8b2edb26547, type: 3}
+  _infectionSound: {fileID: 0}
+  _vaccinePickupSound: {fileID: 0}
+  _weaponPickupSound: {fileID: 0}
 --- !u!70 &3794341444429545318
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -295,6 +301,7 @@ CapsuleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2404176019906757516}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -318,7 +325,8 @@ CapsuleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.95}
   m_Size: {x: 1.0220116, y: 2.015253}
   m_Direction: 0
@@ -330,6 +338,7 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2404176019906757516}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -353,13 +362,13 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
   m_Radius: 0.35
 --- !u!50 &7291882029051351837
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -370,8 +379,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 1
-  m_AngularDrag: 1
+  m_LinearDamping: 1
+  m_AngularDamping: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:

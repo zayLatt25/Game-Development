@@ -1,3 +1,5 @@
+
+
 using System;
 using UnityEngine;
 
@@ -6,14 +8,12 @@ using UnityEngine;
 public abstract class LivingEntity : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] protected int MaxHealth = 100;
+    // MODIFIED: Added [field: SerializeField]
+    // This attribute tells Unity to show this property in the Inspector.
+    [field: SerializeField] public int MaxHealth { get; protected set; } = 100;
     public int Health { get; private set; } = 100;
     
     public event Action HealthChanged;
-
-    // [Header("Colliders")]
-    // [SerializeField] protected Collider2D HitboxCollider;   // trigger for damage
-    // [SerializeField] protected Collider2D GroundCollider;   // solid body collider
 
     protected Rigidbody2D Rigidbody2D;
 
@@ -22,11 +22,8 @@ public abstract class LivingEntity : MonoBehaviour
         Health = MaxHealth; 
 
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        Rigidbody2D.gravityScale = 0f;              // no gravity in top-down
+        Rigidbody2D.gravityScale = 0f;
         Rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-
-        // if (HitboxCollider != null) HitboxCollider.isTrigger = true;
-        // if (GroundCollider != null) GroundCollider.isTrigger = false;
     }
 
     public virtual void TakeDamage(int damage)
@@ -43,3 +40,4 @@ public abstract class LivingEntity : MonoBehaviour
         Destroy(gameObject);
     }
 }
+
