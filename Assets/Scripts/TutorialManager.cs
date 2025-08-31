@@ -138,7 +138,7 @@ public class TutorialManager : MonoBehaviour
             },
             new TutorialStep
             {
-                message = "Tutorial Complete!\nSurvive for 10 minutes and reach the green exit zone!\nPress ESC anytime to pause\n\nGood luck!",
+                message = "Tutorial Complete!\nSurvive for 10 minutes and reach the green exit zone!, Exit Zone are located Randomly Around the corner of the Map\nPress ESC anytime to pause\n\nGood luck!",
                 requiredKey = KeyCode.None,
                 type = TutorialType.Complete,
                 timeoutDuration = 3f
